@@ -1,6 +1,9 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
+import java.util.StringJoiner;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -25,7 +28,6 @@ public class StartUITest {
     public void whenReplaceItem() {
         Output output = new ConsoleOutput();
         Tracker tracker = new Tracker();
-        /* Добавим в tracker новую заявку */
         Item item = tracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         Input in = new StubInput(
@@ -43,9 +45,7 @@ public class StartUITest {
     public void whenDeleteItem() {
         Output output = new ConsoleOutput();
         Tracker tracker = new Tracker();
-        /* Добавим в tracker новую заявку */
         Item item = tracker.add(new Item("Deleted item"));
-        /* Входные данные должны содержать ID добавленной заявки item.getId() */
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
         );
@@ -59,11 +59,9 @@ public class StartUITest {
 
     @Test
     public void whenAllItem() {
-        Output output = new ConsoleOutput();
+        Output output = new StubOutput();
         Tracker tracker = new Tracker();
-        /* Добавим в tracker новую заявку */
         Item item = tracker.add(new Item("All item"));
-        /* Входные данные должны содержать ID добавленной заявки item.getId() */
         Input in = new StubInput(
                 new String[] {"0", "1"}
         );
@@ -71,13 +69,23 @@ public class StartUITest {
                 new AllAction(output),
                 new Exit()
         };
-        new StartUI(output).init(in, tracker, actions);
-        assertThat(tracker.findById(item.getId()).getName(), is("All item"));
+        String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+                .add("Menu.")
+                .add("0. Show")
+                .add("1. Exit")
+                .add("=== Show all items ====")
+                .add("Item{id=1, name='All item'}")
+                .add("Menu.")
+                .add("0. Show")
+                .add("1. Exit")
+                .toString();
+                new StartUI(output).init(in, tracker, actions);
+        assertThat(output.toString(), is(expect));
     }
 
     @Test
     public void whenIdItem() {
-        Output output = new ConsoleOutput();
+        Output output = new StubOutput();
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("Find item"));
         Input in = new StubInput(
@@ -87,13 +95,23 @@ public class StartUITest {
                 new FindIdAction(output),
                 new Exit()
         };
+        String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+                .add("Menu.")
+                .add("0. FindId")
+                .add("1. Exit")
+                .add("=== Find item by Id ====")
+                .add("Item{id=1, name='Find item'}")
+                .add("Menu.")
+                .add("0. FindId")
+                .add("1. Exit")
+                .toString();
         new StartUI(output).init(in, tracker, actions);
-        assertThat(tracker.findById(item.getId()).getName(), is("Find item"));
+        assertThat(output.toString(), is(expect));
     }
 
     @Test
     public void whenNameItem() {
-        Output output = new ConsoleOutput();
+        Output output = new StubOutput();
         Tracker tracker = new Tracker();
         Item itemOne = tracker.add(new Item("Find Id item"));
         Item itemTwo = tracker.add(new Item("Find Name item"));
@@ -104,7 +122,17 @@ public class StartUITest {
                 new FindNameAction(output),
                 new Exit()
         };
+        String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+                .add("Menu.")
+                .add("0. FindName")
+                .add("1. Exit")
+                .add("=== Find items by name ====")
+                .add("Item{id=2, name='Find Name item'}")
+                .add("Menu.")
+                .add("0. FindName")
+                .add("1. Exit")
+                .toString();
         new StartUI(output).init(in, tracker, actions);
-        assertThat(tracker.findById(itemTwo.getId()).getName(), is("Find Name item"));
+        assertThat(output.toString(), is(expect));
     }
 }
