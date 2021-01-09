@@ -56,4 +56,55 @@ public class StartUITest {
         new StartUI(output).init(in, tracker, actions);
         assertNull(tracker.findById(item.getId()));
     }
+
+    @Test
+    public void whenAllItem() {
+        Output output = new ConsoleOutput();
+        Tracker tracker = new Tracker();
+        /* Добавим в tracker новую заявку */
+        Item item = tracker.add(new Item("All item"));
+        /* Входные данные должны содержать ID добавленной заявки item.getId() */
+        Input in = new StubInput(
+                new String[] {"0", "1"}
+        );
+        UserAction[] actions = {
+                new AllAction(output),
+                new Exit()
+        };
+        new StartUI(output).init(in, tracker, actions);
+        assertThat(tracker.findById(item.getId()).getName(), is("All item"));
+    }
+
+    @Test
+    public void whenIdItem() {
+        Output output = new ConsoleOutput();
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("Find item"));
+        Input in = new StubInput(
+                new String[] {"0", String.valueOf(item.getId()), "1"}
+        );
+        UserAction[] actions = {
+                new FindIdAction(output),
+                new Exit()
+        };
+        new StartUI(output).init(in, tracker, actions);
+        assertThat(tracker.findById(item.getId()).getName(), is("Find item"));
+    }
+
+    @Test
+    public void whenNameItem() {
+        Output output = new ConsoleOutput();
+        Tracker tracker = new Tracker();
+        Item itemOne = tracker.add(new Item("Find Id item"));
+        Item itemTwo = tracker.add(new Item("Find Name item"));
+        Input in = new StubInput(
+                new String[] {"0", itemTwo.getName(), "1"}
+        );
+        UserAction[] actions = {
+                new FindNameAction(output),
+                new Exit()
+        };
+        new StartUI(output).init(in, tracker, actions);
+        assertThat(tracker.findById(itemTwo.getId()).getName(), is("Find Name item"));
+    }
 }
