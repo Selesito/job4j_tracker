@@ -17,7 +17,7 @@ public class AllAction implements UserAction {
         out.println("=== Show all items ====");
         Item[] item = tracker.findAll();
         for (Item rsl : item) {
-            System.out.println(rsl);
+            out.println(rsl);
         }
         return true;
     }
