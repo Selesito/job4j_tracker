@@ -7,17 +7,6 @@ public class Tracker {
     private int ids = 1;
     private int size = 0;
 
-    private Tracker() {
-    }
-
-    public static Tracker getInstance() {
-        return Holder.INSTANCE;
-    }
-
-    private static final class Holder {
-        private static final Tracker INSTANCE = new Tracker();
-    }
-
     public Item add(Item item) {
         item.setId(ids++);
         items[size++] = item;
