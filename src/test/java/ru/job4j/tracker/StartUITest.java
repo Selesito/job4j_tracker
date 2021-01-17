@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 import static org.hamcrest.core.Is.is;
@@ -17,7 +18,7 @@ public class StartUITest {
                 new String[] {"0", "Item name", "1"}
         );
         Tracker tracker = Tracker.getInstance();
-        ArrayList<UserAction> actions = new ArrayList<>();
+        List<UserAction> actions = new ArrayList<>();
         actions.add(new CreateAction(output));
         actions.add(new Exit());
         new StartUI(output).init(in, tracker, actions);
@@ -33,7 +34,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), replacedName, "1"}
         );
-        ArrayList<UserAction> actions = new ArrayList<>();
+        List<UserAction> actions = new ArrayList<>();
         actions.add(new ReplaceAction(output));
         actions.add(new Exit());
         new StartUI(output).init(in, tracker, actions);
@@ -48,7 +49,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
         );
-        ArrayList<UserAction> actions = new ArrayList<>();
+        List<UserAction> actions = new ArrayList<>();
         actions.add(new DeleteAction(output));
         actions.add(new Exit());
         new StartUI(output).init(in, tracker, actions);
@@ -63,7 +64,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", "1"}
         );
-        ArrayList<UserAction> actions = new ArrayList<>();
+        List<UserAction> actions = new ArrayList<>();
         actions.add(new AllAction(output));
         actions.add(new Exit());
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
@@ -89,7 +90,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
         );
-        ArrayList<UserAction> actions = new ArrayList<UserAction>();
+        List<UserAction> actions = new ArrayList<>();
         actions.add(new FindIdAction(output));
         actions.add(new Exit());
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
@@ -115,7 +116,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", itemTwo.getName(), "1"}
         );
-        ArrayList<UserAction> actions = new ArrayList<>();
+        List<UserAction> actions = new ArrayList<>();
         actions.add(new FindNameAction(output));
         actions.add(new Exit());
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
@@ -139,7 +140,7 @@ public class StartUITest {
                 new String[] {"6", "0"}
         );
         Tracker tracker = Tracker.getInstance();
-        ArrayList<UserAction> actions = new ArrayList<>();
+        List<UserAction> actions = new ArrayList<>();
         actions.add(new Exit());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
