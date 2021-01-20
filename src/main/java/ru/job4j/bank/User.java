@@ -42,7 +42,7 @@ public class User {
 
     /**
      * Переопределен метод equals!
-     * @param o
+     * @param o Входящий параметр!
      * @return возвращает результат сравнения
      */
     @Override

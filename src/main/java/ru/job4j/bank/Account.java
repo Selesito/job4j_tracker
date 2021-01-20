@@ -9,15 +9,15 @@ import java.util.Objects;
  */
 public class Account {
     /**
-     *В модели хранятся реквезиты и баланс счета!
+     * В модели хранятся реквезиты и баланс счета!
      */
     private String requisite;
     private double balance;
 
     /**
      * Конструктор класса, принимает аргументы для инициализации реквезитов и бланаса!
-     * @param requisite
-     * @param balance
+     * @param requisite реквизиты пользователя.
+     * @param balance баланс по счету.
      */
     public Account(String requisite, double balance) {
         this.requisite = requisite;
@@ -42,7 +42,7 @@ public class Account {
 
     /**
      * Переопределен метод equals!
-     * @param o
+     * @param o Входящий параметр!
      * @return возвращает результат сравнения
      */
     @Override
