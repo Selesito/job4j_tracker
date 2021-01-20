@@ -111,6 +111,7 @@ public class StartUITest {
         assertThat(output.toString(), is(expect));
     }
 
+    @Ignore
     @Test
     public void whenNameItem() {
         Output output = new StubOutput();
