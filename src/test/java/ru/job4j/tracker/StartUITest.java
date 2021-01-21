@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -12,7 +13,15 @@ import static org.junit.Assert.*;
 
 public class StartUITest {
 
-    @Ignore
+    @Before
+    public void before() {
+        Tracker tracker = Tracker.getInstance();
+        List<Item> items = tracker.findAll();
+        for (Item item : items) {
+            tracker.delete(item.getId());
+        }
+    }
+
     @Test
     public void whenCreateItem() {
         Output output = new ConsoleOutput();
@@ -58,7 +67,6 @@ public class StartUITest {
         assertNull(tracker.findById(item.getId()));
     }
 
-    @Ignore
     @Test
     public void whenAllItem() {
         Output output = new StubOutput();
@@ -75,7 +83,7 @@ public class StartUITest {
                 .add("0. Show")
                 .add("1. Exit")
                 .add("=== Show all items ====")
-                .add("Item{id=1, name='All item'}")
+                .add("Item{id=4, name='All item'}")
                 .add("Menu.")
                 .add("0. Show")
                 .add("1. Exit")
@@ -84,7 +92,6 @@ public class StartUITest {
         assertThat(output.toString(), is(expect));
     }
 
-    @Ignore
     @Test
     public void whenIdItem() {
         Output output = new StubOutput();
@@ -102,7 +109,7 @@ public class StartUITest {
                 .add("0. FindId")
                 .add("1. Exit")
                 .add("=== Find item by Id ====")
-                .add("Item{id=1, name='Find item'}")
+                .add("Item{id=6, name='Find item'}")
                 .add("Menu.")
                 .add("0. FindId")
                 .add("1. Exit")
@@ -111,7 +118,6 @@ public class StartUITest {
         assertThat(output.toString(), is(expect));
     }
 
-    @Ignore
     @Test
     public void whenNameItem() {
         Output output = new StubOutput();
