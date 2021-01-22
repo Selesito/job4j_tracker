@@ -74,6 +74,7 @@ public final class Tracker {
         boolean result = index != -1;
         if (result) {
             items.remove(index);
+            ids--;
         }
         return result;
     }
