@@ -11,11 +11,6 @@ public class FI {
             System.out.println("compareTo - " + left + " : " + right);
             return right.compareTo(left);
         };
-        List<String> strs = Arrays.asList("A", "B", "C", "D", "F");
-        Collections.sort(strs, comparator);
-        for (String str : strs) {
-            System.out.println(str);
-        }
     }
 
 }
