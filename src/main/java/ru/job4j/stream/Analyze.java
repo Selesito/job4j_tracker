@@ -36,7 +36,7 @@ public class Analyze {
         return stream.map(s -> new Tuple(s.getName(), s.getSubjects().stream()
                 .mapToInt(p -> p.getScore())
                 .sum()))
-                .max(Comparator.comparingDouble(i -> i.getScore()))
+                .max(Comparator.comparingDouble(Tuple::getScore))
                 .orElse(new Tuple("no name", 0D));
     }
 
@@ -46,7 +46,7 @@ public class Analyze {
                         LinkedHashMap::new,
                         Collectors.summingDouble(p -> p.getScore())))
                 .entrySet().stream().map(i -> new Tuple(i.getKey(), i.getValue()))
-                .max(Comparator.comparingDouble(i -> i.getScore()))
+                .max(Comparator.comparingDouble(Tuple::getScore))
                 .orElse(new Tuple("no name", 0D));
     }
 }
