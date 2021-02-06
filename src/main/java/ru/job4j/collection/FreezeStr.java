@@ -21,11 +21,10 @@ public class FreezeStr {
         for (String value : collect) {
             int count = 0;
             if (!result.containsKey(value)) {
-                for (String value1 : collect) {
-                    if (value.equals(value1)) {
-                        count++;
-                    }
-                }
+                count++;
+            } else if (result.containsKey(value)) {
+                count = result.get(value);
+                count++;
             }
             result.put(value, count);
         }
